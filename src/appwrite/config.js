@@ -1,5 +1,5 @@
 import conf from "../conf/conf";
-import { Client, Storage, TablesDB } from "appwrite";
+import { Client, Storage, TablesDB, Query, ID } from "appwrite";
 
 export class DBService {
   client = new Client();
@@ -63,6 +63,67 @@ export class DBService {
     } catch (error) {
       console.error("Blog deletion failed :", error);
       return false;
+    }
+  }
+
+  async getPost(slug) {
+    try {
+      return await this.database.getRow({
+        databaseId: conf.appwriteDatabaseId,
+        tableId: conf.appwriteCollectionId,
+        rowId: slug,
+      });
+    } catch (error) {
+      console.error("getPost error :", error);
+    }
+  }
+
+  async getAllPosts(queries = [Query.equal("status", "active")]) {
+    try {
+      return this.database.listRows({
+        databaseId: conf.appwriteDatabaseId,
+        tableId: conf.appwriteCollectionId,
+        queries: queries,
+      });
+    } catch (error) {
+      console.error("getAllPosts error :", error);
+    }
+  }
+
+  // File services
+  async uploadFile(file) {
+    try {
+      return await this.storage.createFile({
+        bucketId: conf.appwriteBucketId,
+        fileId: ID.unique(),
+        file: file,
+      });
+    } catch (error) {
+      console.error("Appwrite service :: File upload :: error :", error);
+    }
+  }
+
+  async deleteFile(fileId) {
+    try {
+      await this.storage.deleteFile({
+        bucketId: conf.appwriteBucketId,
+        fileId: fileId,
+      });
+      return true;
+    } catch (error) {
+      console.error("Appwrite service :: File Delete :: error :", error);
+      return false;
+    }
+  }
+
+  async getFilePreview(fileId) {
+    try {
+      return this.storage.getFilePreview({
+        bucketId: conf.appwriteBucketId,
+        fileId: fileId,
+      });
+    } catch (error) {
+      console.error("Appwrite service :: File Delete :: error :", error);
     }
   }
 }
