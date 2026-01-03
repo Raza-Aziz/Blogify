@@ -31,7 +31,7 @@ export class AuthService {
         return userAccount;
       }
     } catch (error) {
-      console.error("Account creation failed:", error.message);
+      console.error("Appwrite service :: createAccount :: error:", error);
       throw error;
     }
   }
@@ -43,7 +43,7 @@ export class AuthService {
         password: password,
       });
     } catch (error) {
-      console.error("Login failed:", error.message);
+      console.error("Appwrite service :: login :: error:", error);
       throw error;
     }
   }
