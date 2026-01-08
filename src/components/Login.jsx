@@ -1,52 +1,46 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login as authLogin } from "../store/authSlice";
 import { Button, Input, Logo } from "./index";
-import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
+import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
 
   const login = async (data) => {
     setError("");
     try {
-      // TODO: Process flow explanation
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        // ? Why did we do authLogin here for dispatch?
         if (userData) dispatch(authLogin(userData));
         navigate("/");
       }
     } catch (error) {
-      console.error(error.message);
+      setError(error.message);
     }
   };
 
   return (
     <div className="flex items-center justify-center w-full">
-      <div className="mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10">
+      <div
+        className={`mx-auto w-full max-w-lg bg-[#ebf9eb] rounded-xl p-10 border border-black/10 m-8`}
+      >
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-25">
-            <Logo width="100%" />
+            <Logo width="100%" className="w-40" />
           </span>
         </div>
-
         <h2 className="text-center text-2xl font-bold leading-tight">
           Sign in to your account
         </h2>
-
-        {/* Show this sentence */}
         <p className="mt-2 text-center text-base text-black/60">
-          Don't have any account?
-          {/* Wrapped inside a Link so that when clicked,
-            will take to the signup page with its own form */}
+          Don&apos;t have any account?&nbsp;
           <Link
             to="/signup"
             className="font-medium text-primary transition-all duration-200 hover:underline"
@@ -54,9 +48,8 @@ function Login() {
             Sign Up
           </Link>
         </p>
-        {error && <p className="text-red-500 text-center mt-8">{error}</p>}
-
-        <form onSubmit={handleSubmit(login)} className="mt-8">
+        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+        <form onSubmit={handleSubmit(login)} className="mt-8 bg-[]">
           <div className="space-y-5">
             <Input
               label="Email: "
@@ -65,11 +58,11 @@ function Login() {
               {...register("email", {
                 required: true,
                 validate: {
-                  matchPattern: (value) =>
+                  matchPatern: (value) =>
                     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                     "Email address must be a valid address",
                 },
-              })} // Need to spread it using ..., otherwise will overwrite the other input value too
+              })}
             />
             <Input
               label="Password: "
@@ -79,8 +72,17 @@ function Login() {
                 required: true,
               })}
             />
-            <Button type="submit" className="w-full">
-              Sign In
+            <Button
+              type="submit"
+              className="
+                  w-full
+                  text-black
+
+                  hover:shadow-[0_12px_35px_rgba(108,222,59,0.6)]
+                  transition
+                "
+            >
+              Sign in
             </Button>
           </div>
         </form>

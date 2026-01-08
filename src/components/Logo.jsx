@@ -1,5 +1,5 @@
-function Logo({ width = "100px" }) {
-  return <div>Logo</div>;
+function Logo({ className = "" }) {
+  return <img src="/logo.png" alt="" className={`${className}`} />;
 }
 
 export default Logo;

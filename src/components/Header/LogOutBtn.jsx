@@ -1,23 +1,26 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { logout } from "../../store/authSlice";
 import authService from "../../appwrite/auth";
+import { logout } from "../../store/authSlice";
+import { useNavigate } from "react-router-dom";
 
-function LogOutBtn() {
+function LogoutBtn() {
   const dispatch = useDispatch();
-
-  const logOutHandler = () => {
-    authService.logout().then(dispatch(logout()));
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    authService.logout().then(() => {
+      dispatch(logout());
+      navigate("/");
+    });
   };
-
   return (
     <button
-      className="inline-block px-6 py-2 hover:bg-blue-400 duration-200 rounded-full"
-      onClick={logOutHandler}
+      className="inline-bock cursor-pointer text-xl font-[Poppins] font-semibold px-6 py-2 duration-200 hover:bg-[#e2f6e2] rounded-full"
+      onClick={logoutHandler}
     >
       Logout
     </button>
   );
 }
 
-export default LogOutBtn;
+export default LogoutBtn;

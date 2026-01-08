@@ -9,57 +9,49 @@ function Header() {
   const navigate = useNavigate();
 
   const navItems = [
-    // If active === true → show the item in UI
-    // If active === false → hide the item in UI
     {
       name: "Home",
-      path: "/",
+      slug: "/",
       active: true,
     },
     {
       name: "Login",
-      path: "/login",
+      slug: "/login",
       active: !authStatus,
     },
     {
       name: "Signup",
-      path: "/signup",
+      slug: "/signup",
       active: !authStatus,
     },
     {
       name: "All Posts",
-      path: "/all-posts",
+      slug: "/all-posts",
       active: authStatus,
     },
     {
       name: "Add Post",
-      path: "/add-post",
+      slug: "/add-post",
       active: authStatus,
     },
   ];
 
   return (
-    <header className="py-3 shadow bg-gray-500">
+    <header className="py-3 shadow bg-[#f9fef7]">
       <Container>
         <nav className="flex">
           <div className="mr-4">
-            <Link>
-              <Logo />
+            <Link to="/">
+              <Logo className="w-40" />
             </Link>
           </div>
-          <ul className="flex ml-auto">
-            {/*
-              For each navItem, check if it's active, and if YES,
-              then show it's name on Header and
-              make it a button to be clicked when once clicked on,
-              will take to its respective url path mentioned in its object
-              */}
+          <ul className="flex ml-auto mt-2">
             {navItems.map((item) =>
               item.active ? (
                 <li key={item.name}>
                   <button
-                    onClick={() => navigate(item.path)}
-                    className="inline-block px-6 py-2 hover:bg-blue-400 duration-200 rounded-full"
+                    onClick={() => navigate(item.slug)}
+                    className="text-xl font-[Poppins] cursor-pointer font-semibold inline-bock px-6 py-2 duration-200 hover:bg-[#e2f6e2] rounded-full"
                   >
                     {item.name}
                   </button>

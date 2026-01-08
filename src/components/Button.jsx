@@ -1,8 +1,10 @@
-function Button({
+import React from "react";
+
+export default function Button({
   children,
-  // type = "button",
-  bgColor = "bg-blue-600",
-  textColor = "text-white",
+  type = "button",
+  bgColor = "bg-[#6cde3b]",
+  textColor = "text-black",
   className = "",
   ...props
 }) {
@@ -15,5 +17,3 @@ function Button({
     </button>
   );
 }
-
-export default Button;
