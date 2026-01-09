@@ -15,6 +15,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
             apiKey="pbuk3qcyfjxnfcu3j66obs5aeiyx6t2bgzsiknwoedvx55ck"
             initialValue={defaultValue}
             init={{
+              uploadcare_public_key: "e60604e11b330d851cba",
               initialValue: defaultValue,
               height: 500,
               menubar: true,
