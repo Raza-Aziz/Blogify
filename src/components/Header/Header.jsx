@@ -58,6 +58,7 @@ function Header() {
                 </li>
               ) : null,
             )}
+            {/* If user is authenticated, then show LogOutBtn */}
             {authStatus && (
               <li>
                 <LogOutBtn />

@@ -8,15 +8,20 @@ export default function Protected({ children, authentication = true }) {
   const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
-    //TODO: make it more easy to understand
+    {
+      /*
+    authentication means if the page requires authentication or not
+    authStatus means if the user is authenticated or not in the redux state
+    Easier code
+    if (authentication === true && authStatus === false) {
+      navigate("/login");
+    }
 
-    // if (authStatus ===true){
-    //     navigate("/")
-    // } else if (authStatus === false) {
-    //     navigate("/login")
-    // }
-
-    //let authValue = authStatus === true ? true : false
+    if (authentication === false && authStatus === true) {
+      navigate("/");
+    }
+    */
+    }
 
     if (authentication && authStatus !== authentication) {
       navigate("/login");
